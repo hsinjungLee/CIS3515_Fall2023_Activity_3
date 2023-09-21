@@ -14,12 +14,16 @@ class MainActivity : AppCompatActivity() {
         val spinner = findViewById<Spinner>(R.id.spinner)
         val displayTextView = findViewById<TextView>(R.id.textDisplay)
 
+
         /* Step 1: Populate this array */
-        val numberArray = Array(50){i -> (i + 1) * 2}
+        val numberArray = Array(50){(it+1)*2}
 
         with (spinner) {
             /* Step 2: Create adapter to display items from array in Spinner */
-            adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, numberArray)
+           // adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, numberArray)
+            spinner.adapter =TextSizeAdapter(this@MainActivity,numberArray)
+
+            spinner.setSelection(9)
 
 
             // Step 3: Change TextView's text size to the number selected in the Spinner */
@@ -28,6 +32,7 @@ class MainActivity : AppCompatActivity() {
                     parent?.run {
                         displayTextView.textSize = getItemAtPosition(position).toString().toFloat()
                     }
+
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
